@@ -1,0 +1,81 @@
+from typing import List
+
+import pandas as pd
+from datetime import datetime
+from covid19visuals import constants, utils
+
+from matplotlib import pyplot as plt, ticker
+
+
+def plot_all(confirmed: pd.DataFrame):
+    plot_select_countries(confirmed, ['US', 'Italy', 'United Kingdom', 'Spain', 'Germany', 'France'])
+    plot_select_states(confirmed, ['Washington', 'New York', 'Florida', 'California', 'New Jersey', 'Illinois'])
+
+
+def plot_select_countries(confirmed: pd.DataFrame, countries: List[str]):
+    fig, ax = plt.subplots(dpi=175)
+
+    for country in countries:
+        _plot_semilogy(ax, confirmed.query(f'`Country/Region` == "{country}"'), country)
+
+    _config_axes(ax)
+    ax.set_ylim([1, 1e5])
+    ax.set_xlim([-45, 0])
+    ax.set_title(f'Confirmed Cases (Select Countries)')
+    _add_watermark(ax)
+    fig.tight_layout()
+
+    fname_prefix = 'confirmed_select_countries'
+    fig.savefig(f'{fname_prefix}_latest.png')
+    fig.savefig(f"{fname_prefix}_{constants.NOW.strftime('%Y_%m_%d_%H_%M')}.png")
+
+
+def plot_select_states(confirmed: pd.DataFrame, states: List[str]):
+    fig, ax = plt.subplots(dpi=175)
+
+    for state in states:
+        _plot_semilogy(ax, confirmed.query(f'`Country/Region` == "US" & `Province/State` == "{state}"'), state)
+
+    _config_axes(ax)
+    ax.set_ylim([1, 1e5])
+    ax.set_xlim([-13, 0])
+    ax.set_title(f'Confirmed Cases (Select US States)')
+    _add_watermark(ax)
+    fig.tight_layout()
+
+    fname_prefix = 'confirmed_select_states'
+    fig.savefig(f'{fname_prefix}_latest.png')
+    fig.savefig(f"{fname_prefix}_{constants.NOW.strftime('%Y_%m_%d_%H_%M')}.png")
+
+
+def _config_axes(ax):
+    ax.set_xlabel(f"Days from {constants.TODAY.strftime('%d %B %Y')}")
+    ax.set_ylabel('Confirmed COVID-19 Cases')
+    ax.yaxis.set_major_formatter(ticker.ScalarFormatter())
+    ax.yaxis.get_major_formatter().set_scientific(False)
+    ax.yaxis.get_major_formatter().set_useOffset(False)
+    ax.grid(linestyle='-.', linewidth=0.25)
+    ax.legend(prop={'size': 6})
+
+
+def _plot_semilogy(ax, data: pd.DataFrame, region: str):
+    days, cases, change = _accumulate(data)
+    ax.semilogy(days, cases, 's-', ms=2.5, label=f'{region} (+{change}%)')
+
+
+def _accumulate(data: pd.DataFrame):
+    days, cases = [], []
+
+    # Parse only the date columns
+    for col in data.columns.values[4:]:
+        date = datetime.strptime(col, constants.REGIONAL_DATE_FORMAT).date()
+        delta = (date - constants.TODAY).days
+        days.append(delta)
+        cases.append(data[col].sum())
+
+    change = utils.percent_change(cases[-2], cases[-1])
+    return days, cases, change
+
+
+def _add_watermark(ax):
+    ax.text(.835, .01, '© 2020 C. Campo\ncovid19.ccampo.me', alpha=0.5, fontsize=6, transform=ax.transAxes)
