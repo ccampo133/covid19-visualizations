@@ -21,7 +21,7 @@ jobs:
       - name: Build and install dependencies
         run: |
           python -m pip install --upgrade pip
-          python setup.py install
+          python setup.py develop
 
       - name: Lint with flake8
         run: |
@@ -42,6 +42,6 @@ jobs:
         with:
           author_name: Chris Campo
           author_email: ccampo133@users.noreply.github.com
-          message: Scheduled auto-update
+          message: Auto-update
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

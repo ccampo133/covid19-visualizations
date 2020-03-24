@@ -1,6 +1,5 @@
-from covid19visuals import constants
 import pystache
-from covid19visuals import templates
+from covid19visuals import constants, templates
 import importlib.resources as pkg_resources
 
 

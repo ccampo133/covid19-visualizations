@@ -23,5 +23,5 @@ setup(
     packages=['covid19visuals'],
     entry_points={
         'console_scripts': ['cov19vis=covid19visuals.cli:main']
-    },
+    }
 )
