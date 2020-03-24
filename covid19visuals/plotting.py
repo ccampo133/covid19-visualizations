@@ -47,7 +47,7 @@ def _config_axes(ax, xlim, ylim, title):
     ax.set_ylim(ylim)
     ax.set_xlim(xlim)
     ax.set_title(title)
-    ax.text(.835, .01, '© 2020 C. Campo\ncovid19.ccampo.me', alpha=0.5, fontsize=6, transform=ax.transAxes)
+    ax.text(.835, -0.12, '© 2020 C. Campo\ncovid19.ccampo.me', alpha=0.5, fontsize=6, transform=ax.transAxes)
 
 
 def _plot_semilogy(ax, data: pd.DataFrame, region: str):
