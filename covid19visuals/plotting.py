@@ -7,11 +7,6 @@ from covid19visuals import constants, utils
 from matplotlib import pyplot as plt, ticker
 
 
-def plot_all(confirmed: pd.DataFrame):
-    plot_select_countries(confirmed, ['US', 'Italy', 'United Kingdom', 'Spain', 'Germany', 'France'])
-    plot_select_states(confirmed, ['Washington', 'New York', 'Florida', 'California', 'New Jersey', 'Illinois'])
-
-
 def plot_select_countries(confirmed: pd.DataFrame, countries: List[str]):
     fig, ax = plt.subplots(dpi=135)
 

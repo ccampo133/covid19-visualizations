@@ -1,6 +1,11 @@
 # covid19-visualizations
 
+[![](https://github.com/ccampo133/covid19-visualizations/workflows/Build%20master/badge.svg)](https://github.com/{owner}/{repo}/actions) 
+
 Various visualizations for COVID-19 data. Accessible at https://covid19.ccampo.me.
+
+Updates occur automatically every twelve hours and on every push to master (see the GitHub Actions workflows for 
+details).
 
 Data provided by the [Johns Hopkins CSSE COVID-19 database](https://github.com/CSSEGISandData/COVID-19).
 
