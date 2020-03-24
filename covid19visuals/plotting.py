@@ -35,8 +35,10 @@ def plot_select_states(confirmed: pd.DataFrame, states: List[str]):
 
 
 def _save_figs(fig, fname_prefix: str):
-    fig.savefig(f'{fname_prefix}_latest.png')
-    fig.savefig(f"{fname_prefix}_{constants.NOW.strftime('%Y_%m_%d_%H_%M')}.png")
+    filenames = [f"{fname_prefix}_latest.png", f"{fname_prefix}_{constants.NOW.strftime('%Y_%m_%d_%H_%M')}.png"]
+    for filename in filenames:
+        fig.savefig(filename)
+        print(f'Saved file: {filename}')
 
 
 def _config_axes(ax, xlim, ylim, title):
