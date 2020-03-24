@@ -17,7 +17,8 @@ setup(
     install_requires=[
         'requests==2.22.0',
         'pandas==1.0.3',
-        'matplotlib==3.2.1'
+        'matplotlib==3.2.1',
+        'pystache==0.5.4'
     ],
     packages=['covid19visuals'],
     entry_points={

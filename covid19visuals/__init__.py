@@ -1,1 +1,1 @@
-from covid19visuals import cli, constants, plotting
+from covid19visuals import cli, constants, plotting, templating, utils

@@ -13,7 +13,7 @@ def plot_all(confirmed: pd.DataFrame):
 
 
 def plot_select_countries(confirmed: pd.DataFrame, countries: List[str]):
-    fig, ax = plt.subplots(dpi=175)
+    fig, ax = plt.subplots(dpi=135)
 
     for country in countries:
         _plot_semilogy(ax, confirmed.query(f'`Country/Region` == "{country}"'), country)
@@ -24,7 +24,7 @@ def plot_select_countries(confirmed: pd.DataFrame, countries: List[str]):
 
 
 def plot_select_states(confirmed: pd.DataFrame, states: List[str]):
-    fig, ax = plt.subplots(dpi=175)
+    fig, ax = plt.subplots(dpi=135)
 
     for state in states:
         _plot_semilogy(ax, confirmed.query(f'`Country/Region` == "US" & `Province/State` == "{state}"'), state)
