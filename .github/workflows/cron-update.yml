@@ -26,6 +26,7 @@ jobs:
           cov19vis
           mv index.html docs/index.html
           mv confirmed* docs/assets/images/confirmed/
+          mv deaths* docs/assets/images/deaths/
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v4
