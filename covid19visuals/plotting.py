@@ -1,8 +1,7 @@
 from typing import List
 
 import pandas as pd
-from datetime import datetime
-from covid19visuals import constants, utils
+from covid19visuals import constants, utils, analysis
 import numpy as np
 
 from matplotlib import pyplot as plt, ticker
@@ -19,7 +18,7 @@ def plot_death_rate_select_countries(deaths: pd.DataFrame, cases: pd.DataFrame, 
 
     death_rates = {}
     for country in countries:
-        death_rate = _get_death_rate(
+        death_rate = analysis.get_death_rate(
             deaths.query(f'`Country/Region` == "{country}"'),
             cases.query(f'`Country/Region` == "{country}"')
         )
@@ -52,7 +51,7 @@ def plot_deaths_select_countries(deaths: pd.DataFrame, countries: List[str]):
 
     max_x, max_y = 0, 1e4
     for country in countries:
-        x, y = _get_days_deaths(deaths.query(f'`Country/Region` == "{country}"'), MIN_DEATHS)
+        x, y = analysis.get_days_deaths(deaths.query(f'`Country/Region` == "{country}"'), MIN_DEATHS)
         cur_max_x = max(x)
         cur_max_y = max(y)
         if cur_max_x > max_x:
@@ -73,7 +72,7 @@ def plot_cases_select_countries(cases: pd.DataFrame, countries: List[str]):
 
     max_y = 1e5
     for country in countries:
-        x, y = _get_days_cases(cases.query(f'`Country/Region` == "{country}"'))
+        x, y = analysis.get_days_cases(cases.query(f'`Country/Region` == "{country}"'))
         cur_max_y = max(y)
         if cur_max_y > max_y:
             max_y = 1e6
@@ -91,7 +90,7 @@ def plot_cases_select_states(cases: pd.DataFrame, states: List[str]):
 
     max_y = 1e4
     for state in states:
-        x, y = _get_days_cases(cases.query(f'`Country/Region` == "US" & `Province/State` == "{state}"'))
+        x, y = analysis.get_days_cases(cases.query(f'`Country/Region` == "US" & `Province/State` == "{state}"'))
         cur_max_y = max(y)
         if cur_max_y > max_y:
             max_y = 1e5
@@ -123,44 +122,6 @@ def _config_axes(ax, xlim, ylim, xlabel, ylabel, title):
     ax.set_xlim(xlim)
     ax.set_title(title)
     _add_watermark(ax)
-
-
-def _get_days_deaths(data: pd.DataFrame, starting_deaths):
-    x, y = [], []
-
-    # Parse only the date columns
-    t0 = None
-    for col in data.columns.values[4:]:
-        deaths = data[col].sum()
-        if deaths >= starting_deaths:
-            date = datetime.strptime(col, constants.REGIONAL_DATE_FORMAT).date()
-            if t0 is None:
-                t0 = date
-            delta = (date - t0).days
-            x.append(delta)
-            y.append(data[col].sum())
-
-    return x, y
-
-
-def _get_days_cases(data: pd.DataFrame):
-    x, y = [], []
-
-    # Parse only the date columns
-    for col in data.columns.values[4:]:
-        date = datetime.strptime(col, constants.REGIONAL_DATE_FORMAT).date()
-        delta = (date - constants.TODAY).days
-        x.append(delta)
-        y.append(data[col].sum())
-
-    return x, y
-
-
-def _get_death_rate(deaths: pd.DataFrame, cases: pd.DataFrame):
-    latest_date = deaths.columns.values[-1]
-    total_cases = cases[latest_date].sum()
-    total_deaths = deaths[latest_date].sum()
-    return 100 * (total_deaths / total_cases)
 
 
 def _plot_semilogy(ax, x, y, region: str):
