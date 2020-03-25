@@ -3,6 +3,7 @@ from typing import List
 import pandas as pd
 from datetime import datetime
 from covid19visuals import constants, utils
+import numpy as np
 
 from matplotlib import pyplot as plt, ticker
 
@@ -11,6 +12,38 @@ CASES_Y_LABEL = 'Confirmed COVID-19 Cases'
 CASES_X_LABEL = f"Days from {constants.TODAY.strftime('%d %B %Y')}"
 DEATHS_Y_LABEL = 'Confirmed COVID-19 Deaths'
 DEATHS_X_LABEL = f"Days since {MIN_DEATHS} deaths"
+
+
+def plot_death_rate_select_countries(deaths: pd.DataFrame, cases: pd.DataFrame, countries: List[str]):
+    fig, ax = plt.subplots(dpi=135)
+
+    death_rates = {}
+    for country in countries:
+        death_rate = _get_death_rate(
+            deaths.query(f'`Country/Region` == "{country}"'),
+            cases.query(f'`Country/Region` == "{country}"')
+        )
+        death_rates[country] = death_rate
+
+    # Sort by death rate
+    death_rates = {k: v for k, v in sorted(death_rates.items(), key=lambda item: item[1])}
+    y_pos = np.arange(len(death_rates))
+    ax.barh(y_pos, death_rates.values(), align='center')
+
+    # Add percentages at ends of bars
+    for i, v in enumerate(death_rates.values()):
+        ax.text(v + 0.01, i - 0.05, f'{str(round(v, 1))}%')
+
+    ax.set_yticks(y_pos)
+    ax.set_yticklabels(death_rates.keys())
+    ax.set_xlim([0, 11])
+    ax.tick_params(axis='x', labelsize=8)
+    ax.grid(axis='x', alpha=0.5)
+    ax.xaxis.tick_top()
+    ax.set_axisbelow(True)
+    ax.set_title(f"Death Rate (as of {constants.TODAY.strftime('%d %B %Y')})")
+    fig.tight_layout()
+    _save_figs(fig, 'death_rate_select_countries')
 
 
 def plot_deaths_select_countries(deaths: pd.DataFrame, countries: List[str]):
@@ -120,6 +153,13 @@ def _get_days_cases(data: pd.DataFrame):
         y.append(data[col].sum())
 
     return x, y
+
+
+def _get_death_rate(deaths: pd.DataFrame, cases: pd.DataFrame):
+    latest_date = deaths.columns.values[-1]
+    total_cases = cases[latest_date].sum()
+    total_deaths = deaths[latest_date].sum()
+    return 100 * (total_deaths / total_cases)
 
 
 def _plot_semilogy(ax, x, y, region: str):
