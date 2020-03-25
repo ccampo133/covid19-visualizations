@@ -5,7 +5,8 @@
 Various visualizations for COVID-19 data. Accessible at https://covid19.ccampo.me.
 
 Updates occur automatically every day at midnight GMT and on every push to master (see the GitHub Actions workflows for 
-auto-update details).
+auto-update details). The [GitHub deployment log](https://github.com/ccampo133/covid19-visualizations/deployments?environment=github-pages#activity-log) 
+shows all recent website updates.
 
 Data provided by the [Johns Hopkins CSSE COVID-19 database](https://github.com/CSSEGISandData/COVID-19).
 
