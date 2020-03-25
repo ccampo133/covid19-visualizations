@@ -62,9 +62,18 @@ def plot_deaths_select_countries(deaths: pd.DataFrame, countries: List[str]):
 
     title = 'Deaths (Select Countries)'
 
+    t = np.arange(0, max_x + 2, 1)
+    _plot_exponential_growth(ax, 10, t, 0.35, '-.')
+    _plot_exponential_growth(ax, 10, t, 0.25, '--')
     _config_axes(ax, xlim=[0, max_x + 1], ylim=[10, max_y], xlabel=DEATHS_X_LABEL, ylabel=DEATHS_Y_LABEL, title=title)
     fig.tight_layout()
     _save_figs(fig, 'deaths_select_countries')
+
+
+def _plot_exponential_growth(ax, x0, t, rate, linestyle='s-'):
+    label = f'{int(rate * 100)}% daily increase'
+    ax.semilogy(t, analysis.exponential_growth(t, x0, rate), linestyle, ms=2.5, linewidth=1, label=label, color='black',
+                alpha=0.35)
 
 
 def plot_cases_select_countries(cases: pd.DataFrame, countries: List[str]):

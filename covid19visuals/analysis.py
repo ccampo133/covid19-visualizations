@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from datetime import datetime
 from covid19visuals import constants
 
@@ -48,3 +49,7 @@ def get_death_rate(deaths: pd.DataFrame, cases: pd.DataFrame):
     total_cases = cases[latest_date].sum()
     total_deaths = deaths[latest_date].sum()
     return 100 * (total_deaths / total_cases)
+
+
+def exponential_growth(t, x0, r):
+    return x0 * np.power((1 + r), t)
