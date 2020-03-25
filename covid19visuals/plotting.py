@@ -42,6 +42,7 @@ def plot_death_rate_select_countries(deaths: pd.DataFrame, cases: pd.DataFrame, 
     ax.xaxis.tick_top()
     ax.set_axisbelow(True)
     ax.set_title(f"Death Rate (as of {constants.TODAY.strftime('%d %B %Y')})")
+    _add_watermark(ax, ypos=-0.05)
     fig.tight_layout()
     _save_figs(fig, 'death_rate_select_countries')
 
@@ -121,7 +122,7 @@ def _config_axes(ax, xlim, ylim, xlabel, ylabel, title):
     ax.set_ylim(ylim)
     ax.set_xlim(xlim)
     ax.set_title(title)
-    ax.text(.835, -0.12, '© 2020 C. Campo\ncovid19.ccampo.me', alpha=0.5, fontsize=6, transform=ax.transAxes)
+    _add_watermark(ax)
 
 
 def _get_days_deaths(data: pd.DataFrame, starting_deaths):
@@ -165,3 +166,7 @@ def _get_death_rate(deaths: pd.DataFrame, cases: pd.DataFrame):
 def _plot_semilogy(ax, x, y, region: str):
     pct_change = utils.percent_change(y[-2], y[-1])
     ax.semilogy(x, y, 's-', ms=2.5, linewidth=1, label=f'{region} (+{pct_change}%)')
+
+
+def _add_watermark(ax, xpos=0.835, ypos=-0.12):
+    ax.text(xpos, ypos, '© 2020 C. Campo\ncovid19.ccampo.me', alpha=0.5, fontsize=6, transform=ax.transAxes)
