@@ -94,7 +94,7 @@ def plot_death_rate_select_countries(deaths: pd.DataFrame, cases: pd.DataFrame, 
 
     ax.set_yticks(y_pos)
     ax.set_yticklabels(death_rates.keys())
-    ax.set_xlim([0, 11])
+    ax.set_xlim([0, 11.5])
     ax.tick_params(axis='x', labelsize=8)
     ax.grid(axis='x', alpha=0.5)
     ax.xaxis.tick_top()
