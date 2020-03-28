@@ -8,7 +8,9 @@ Updates occur automatically every day at midnight GMT and on every push to maste
 auto-update details). The [GitHub deployment log](https://github.com/ccampo133/covid19-visualizations/deployments?environment=github-pages#activity-log) 
 shows all recent website updates.
 
-Data provided by the [Johns Hopkins CSSE COVID-19 database](https://github.com/CSSEGISandData/COVID-19).
+Data provided by:
+* [Johns Hopkins CSSE COVID-19 database](https://github.com/CSSEGISandData/COVID-19).
+* [The New York Times COVID-19 database](https://github.com/nytimes/covid-19-data)
 
 Visualizations inspired by http://nrg.cs.ucl.ac.uk/mjh/covid19/
 
