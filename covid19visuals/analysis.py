@@ -23,7 +23,7 @@ def get_days_cases(data: pd.DataFrame, start: int):
     for col in data.columns.values[4:]:
         cur_cases = data[col].sum()
         if cur_cases >= start:
-            date = datetime.strptime(col, constants.REGIONAL_DATE_FORMAT).date()
+            date = datetime.strptime(col, constants.GLOBAL_DATE_FORMAT).date()
             if t0 is None:
                 t0 = date
             delta = (date - t0).days
