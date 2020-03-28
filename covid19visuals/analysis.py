@@ -1,6 +1,8 @@
-import pandas as pd
-import numpy as np
 from datetime import datetime
+
+import numpy as np
+import pandas as pd
+
 from covid19visuals import constants
 
 
@@ -40,3 +42,7 @@ def get_death_rate(deaths: pd.DataFrame, cases: pd.DataFrame):
 
 def exponential_growth(t, x0, r):
     return x0 * np.power((1 + r), t)
+
+
+def doubling_time(r):
+    return int(round(0.69 / r))

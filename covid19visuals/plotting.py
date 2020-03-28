@@ -19,7 +19,7 @@ def plot_deaths_select_countries(deaths: pd.DataFrame, countries: List[str]):
         fname='deaths_select_countries',
         init_max_x=0,
         init_max_y=1e4,
-        step=10
+        step=3
     )
 
 
@@ -35,7 +35,7 @@ def plot_cases_select_countries(cases: pd.DataFrame, countries: List[str]):
         fname='confirmed_select_countries',
         init_max_x=0,
         init_max_y=1e5,
-        step=10
+        step=3
     )
 
 
@@ -64,7 +64,7 @@ def plot_select_countries(
         _plot_semilogy(ax, x, y, country)
 
     t = np.arange(0, max_x + 2, 1)
-    _plot_exponential_growth(ax, start, t, 0.50, linestyle='--')
+    _plot_exponential_growth(ax, start, t, 0.60, linestyle='--')
     _plot_exponential_growth(ax, start, t, 0.35, linestyle='-.')
     _plot_exponential_growth(ax, start, t, 0.25, linestyle=':')
     _config_axes(ax, xlim=[0, max_x + 1], ylim=[start, max_y], xlabel=xlabel, ylabel=ylabel, title=title)
@@ -127,7 +127,7 @@ def _config_axes(ax, xlim, ylim, xlabel, ylabel, title):
 
 
 def _plot_exponential_growth(ax, x0, t, rate, linestyle='s-'):
-    label = f'{int(rate * 100)}% daily increase\n(doubled every {int(np.ceil(1 / rate))} days)'
+    label = f'{int(rate * 100)}% daily increase\n(doubled every {analysis.doubling_time(rate)} days)'
     y = analysis.exponential_growth(t, x0, rate)
     ax.semilogy(t, y, linestyle, ms=2.5, linewidth=1, label=label, color='black', alpha=0.35)
 
