@@ -129,7 +129,7 @@ def _config_axes(ax, xlim, ylim, xlabel, ylabel, title):
     ax.yaxis.get_major_formatter().set_scientific(False)
     ax.yaxis.get_major_formatter().set_useOffset(False)
     ax.grid(linestyle='-.', linewidth=0.25)
-    ax.legend(prop={'size': 6}, loc='lower right')
+    ax.legend(prop={'size': 5}, loc='lower right', ncol=2)
     ax.set_ylim(ylim)
     ax.set_xlim(xlim)
     start, end = xlim
