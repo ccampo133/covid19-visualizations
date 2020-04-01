@@ -56,10 +56,10 @@ def _plot_death_rate(death_rates, fig, ax, title, fname, latest=False):
     for i, v in enumerate(death_rates.values()):
         ax.text(v + 0.01, i - 0.05, f'{str(round(v, 1))}%', fontsize=8)
 
-    max_death_rate = np.ceil(max(death_rates.values()))
+    max_death_rate = max(death_rates.values())
     ax.set_yticks(y_pos)
     ax.set_yticklabels(death_rates.keys())
-    ax.set_xlim([0, max_death_rate + 0.5])
+    ax.set_xlim([0, _get_x_lim_max(max_death_rate)])
     ax.tick_params(axis='x', labelsize=8)
     ax.grid(axis='x', alpha=0.5)
     ax.xaxis.tick_top()
@@ -68,3 +68,10 @@ def _plot_death_rate(death_rates, fig, ax, title, fname, latest=False):
     plotting_utils.add_watermark(ax, ypos=-0.05)
     fig.tight_layout()
     plotting_utils.save_figs(fig, fname, latest=latest)
+
+
+def _get_x_lim_max(x_max):
+    decimals = x_max % 1
+    if decimals > 0.6:
+        return x_max + (1.5 * decimals)
+    return np.ceil(x_max)
