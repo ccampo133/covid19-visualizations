@@ -1,2 +1,2 @@
-def percent_change(v1: int, v2: int) -> int:
-    return int(100 * (v2 - v1) / v1)
+def percent_change(old: int, new: int) -> int:
+    return int(100 * (new - old) / old)
