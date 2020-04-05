@@ -74,4 +74,4 @@ def _get_x_lim_max(x_max):
     decimals = x_max % 1
     if decimals > 0.6:
         return x_max + (1.5 * decimals)
-    return np.ceil(x_max)
+    return x_max + 3.25 * decimals
