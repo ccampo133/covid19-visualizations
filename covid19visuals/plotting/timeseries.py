@@ -8,6 +8,24 @@ from covid19visuals import utils, analysis
 from covid19visuals.plotting import plotting_utils
 
 
+def plot_cases_select_countries(cases: pd.DataFrame, countries: List[str], latest=False):
+    min_cases = 100
+    plot_select_regions(
+        data=cases,
+        query_func=lambda region: f'`Country/Region` == "{region}"',
+        regions=countries,
+        start=100,
+        title='Confirmed Cases (Select Countries)',
+        xlabel=f'Days since {min_cases} cases',
+        ylabel='Confirmed COVID-19 Cases',
+        fname='confirmed_select_countries',
+        init_max_x=0,
+        init_max_y=1e6,
+        step=2,
+        latest=latest
+    )
+
+
 def plot_cases_select_states(data: pd.DataFrame, states: List[str], latest=False):
     min_cases = 100
     plot_select_regions(
@@ -22,8 +40,26 @@ def plot_cases_select_states(data: pd.DataFrame, states: List[str], latest=False
         ylabel='Confirmed COVID-19 Cases',
         fname='confirmed_select_states',
         init_max_x=0,
-        init_max_y=1e5,
-        step=6,
+        init_max_y=3e5,
+        step=2,
+        latest=latest
+    )
+
+
+def plot_deaths_select_countries(deaths: pd.DataFrame, countries: List[str], latest=False):
+    min_deaths = 10
+    plot_select_regions(
+        data=deaths,
+        query_func=lambda region: f'`Country/Region` == "{region}"',
+        regions=countries,
+        start=min_deaths,
+        title='Deaths (Select Countries)',
+        xlabel=f'Days since {min_deaths} deaths',
+        ylabel='Confirmed COVID-19 Deaths',
+        fname='deaths_select_countries',
+        init_max_x=0,
+        init_max_y=4e4,
+        step=2,
         latest=latest
     )
 
@@ -42,44 +78,8 @@ def plot_deaths_select_states(deaths: pd.DataFrame, states: List[str], latest=Fa
         ylabel='Confirmed COVID-19 Deaths',
         fname='deaths_select_states',
         init_max_x=0,
-        init_max_y=1e3,
-        step=10,
-        latest=latest
-    )
-
-
-def plot_deaths_select_countries(deaths: pd.DataFrame, countries: List[str], latest=False):
-    min_deaths = 10
-    plot_select_regions(
-        data=deaths,
-        query_func=lambda region: f'`Country/Region` == "{region}"',
-        regions=countries,
-        start=min_deaths,
-        title='Deaths (Select Countries)',
-        xlabel=f'Days since {min_deaths} deaths',
-        ylabel='Confirmed COVID-19 Deaths',
-        fname='deaths_select_countries',
-        init_max_x=0,
-        init_max_y=1e4,
-        step=6,
-        latest=latest
-    )
-
-
-def plot_cases_select_countries(cases: pd.DataFrame, countries: List[str], latest=False):
-    min_cases = 100
-    plot_select_regions(
-        data=cases,
-        query_func=lambda region: f'`Country/Region` == "{region}"',
-        regions=countries,
-        start=100,
-        title='Confirmed Cases (Select Countries)',
-        xlabel=f'Days since {min_cases} cases',
-        ylabel='Confirmed COVID-19 Cases',
-        fname='confirmed_select_countries',
-        init_max_x=0,
-        init_max_y=1e5,
-        step=6,
+        init_max_y=2e4,
+        step=2,
         latest=latest
     )
 
