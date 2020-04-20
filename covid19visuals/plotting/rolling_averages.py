@@ -112,7 +112,7 @@ def plot_select_regions(
         reg, pop = region['region'], region['pop']
         filtered = data.query(query_func(reg))
         x, y = analysis.get_days_new_cases(filtered, start, source_type, col)
-        x = x[:-6]
+        x = x[6:]
         y = analysis.moving_average(y, n=7)
         y = np.array(y) / pop
         cur_max_x, cur_max_y = max(x), max(y)
@@ -123,8 +123,8 @@ def plot_select_regions(
         plotting_utils.plot_linear(ax, x, y, reg)
     plotting_utils.config_axes(
         ax=ax,
-        xlim=[0, max_x + 1],
-        ylim=[-1, max_y],
+        xlim=[6, max_x + 1],
+        ylim=[0, max_y],
         xlabel=xlabel,
         ylabel=ylabel,
         title=title,
