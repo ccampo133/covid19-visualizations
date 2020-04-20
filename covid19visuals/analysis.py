@@ -14,13 +14,34 @@ def get_latest_total(data: pd.DataFrame, country: str = None):
     return filtered[filtered.columns.values[-1]].sum()
 
 
-def get_days_cases(data: pd.DataFrame, start: int, type: str, col: str = 'cases'):
-    if type.lower() == 'jhu':
+def get_days_cases(data: pd.DataFrame, start: int, source_type: str, col: str = 'cases'):
+    if source_type.lower() == 'jhu':
         return get_days_cases_jhu(data, start)
-    elif type.lower() == 'nyt':
+    elif source_type.lower() == 'nyt':
         return get_days_cases_nyt(data, start, col)
     else:
-        raise RuntimeError(f'Type {type} is not recognized.')
+        raise RuntimeError(f'Type {source_type} is not recognized.')
+
+
+def get_days_new_cases(data: pd.DataFrame, start: int, source_type: str, col: str = 'cases'):
+    if source_type.lower() == 'jhu':
+        return get_days_new_cases_jhu(data, start)
+    elif source_type.lower() == 'nyt':
+        return get_days_new_cases_nyt(data, start, col)
+    else:
+        raise RuntimeError(f'Type {source_type} is not recognized.')
+
+
+def get_days_new_cases_jhu(data: pd.DataFrame, start: int):
+    days, cases = get_days_cases_jhu(data, start)
+    new_cases = [0 if i == 0 else cases[i] - cases[i - 1] for i in range(len(cases))]
+    return days, new_cases
+
+
+def get_days_new_cases_nyt(data: pd.DataFrame, start: int, col):
+    days, cases = get_days_cases_nyt(data, start, col)
+    new_cases = [0 if i == 0 else cases[i] - cases[i - 1] for i in range(len(cases))]
+    return days, new_cases
 
 
 def get_days_cases_jhu(data: pd.DataFrame, start: int):
@@ -69,3 +90,9 @@ def exponential_growth(t, x0, r):
 # This is really ln(2)/ln(1 + r), but this is a 'good enough' approximation
 def doubling_time(r):
     return int(round(0.69 / r))
+
+
+def moving_average(a, n=7):
+    ret = np.cumsum(a, dtype=float)
+    ret[n:] = ret[n:] - ret[:-n]
+    return ret[n - 1:] / n
