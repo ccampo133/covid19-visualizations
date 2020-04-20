@@ -41,15 +41,15 @@ def config_axes(ax, xlim, ylim, xlabel, ylabel, title, loc='lower right', ncol=1
 def plot_linear(ax, x, y, region: str):
     pct_change = utils.percent_change(y[-2], y[-1])
     sign = '+' if pct_change > 0 else ''
-    ax.plot(x, y, 's-', ms=2.5, linewidth=1, label=f'{region} ({sign}{pct_change}%)')
+    ax.plot(x, y, 's-', ms=1.5, linewidth=1, label=f'{region} ({sign}{pct_change}%)')
 
 
 def plot_exponential_growth(ax, x0, t, rate, ls='s-'):
     label = f'{int(rate * 100)}% daily increase\n(doubled every {analysis.doubling_time(rate)} days)'
     y = analysis.exponential_growth(t, x0, rate)
-    ax.semilogy(t, y, linestyle=ls, ms=2.5, linewidth=1, label=label, color='black', alpha=0.35)
+    ax.semilogy(t, y, linestyle=ls, ms=1.5, linewidth=1, label=label, color='black', alpha=0.35)
 
 
 def plot_semilogy(ax, x, y, region: str):
     pct_change = utils.percent_change(y[-2], y[-1])
-    ax.semilogy(x, y, 's-', ms=2.5, linewidth=1, label=f'{region} (+{pct_change}%)')
+    ax.semilogy(x, y, 's-', ms=1.5, linewidth=1, label=f'{region} (+{pct_change}%)')
