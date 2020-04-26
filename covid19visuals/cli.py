@@ -13,7 +13,6 @@ select_countries_with_populations = [
     {'region': 'Spain', 'pop': 46754778e-6},
     {'region': 'Germany', 'pop': 83783942e-6},
     {'region': 'France', 'pop': 65273511e-6},
-    {'region': 'Iran', 'pop': 83992949e-6},
     {'region': 'Belgium', 'pop': 11589623e-6},
     {'region': 'Netherlands', 'pop': 17134872e-6},
 ]
