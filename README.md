@@ -39,4 +39,4 @@ Then run the program from the command line:
     Saved file: index.html
     Saved file: confirmed_select_countries_latest.png
     Saved file: confirmed_select_countries_2020_03_25_00_05.png
-
+    ...
