@@ -72,5 +72,5 @@ def _plot_death_rate(death_rates, fig, ax, title, fname, latest=False):
 
 def _get_x_lim_max(x_max):
     if x_max < 10:
-        return x_max + 0.4
-    return x_max + 1.25
+        return x_max + 0.5
+    return x_max + 1.3
