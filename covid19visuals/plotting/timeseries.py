@@ -57,7 +57,7 @@ def plot_deaths_select_countries(deaths: pd.DataFrame, countries: List[str], lat
         ylabel='Deaths',
         fname='deaths_select_countries',
         init_max_x=0,
-        init_max_y=4e4,
+        init_max_y=5e4,
         step=2,
         latest=latest
     )
@@ -77,7 +77,7 @@ def plot_deaths_select_states(deaths: pd.DataFrame, states: List[str], latest=Fa
         ylabel='Deaths',
         fname='deaths_select_states',
         init_max_x=0,
-        init_max_y=2e4,
+        init_max_y=3e4,
         step=2,
         latest=latest
     )
