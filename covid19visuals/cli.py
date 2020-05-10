@@ -15,6 +15,7 @@ select_countries_with_populations = [
     {'region': 'France', 'pop': 65273511e-6},
     {'region': 'Belgium', 'pop': 11589623e-6},
     {'region': 'Netherlands', 'pop': 17134872e-6},
+    {'region': 'Sweden', 'pop': 10099265e-6}
 ]
 
 # Population values in millions. Estimate as of 2019-07-01
