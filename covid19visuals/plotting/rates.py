@@ -28,7 +28,7 @@ def plot_death_rate_select_countries(deaths: pd.DataFrame, cases: pd.DataFrame, 
     )
 
 
-def plot_death_rate_select_states(data: pd.DataFrame, states: List[str], latest=False):
+def plot_death_rate_select_states(data: pd.DataFrame, states: List[str], latest=False, fname_suffix=''):
     fig, ax = plotting_utils.init_fig()
 
     death_rates = {}
@@ -41,7 +41,7 @@ def plot_death_rate_select_states(data: pd.DataFrame, states: List[str], latest=
         fig=fig,
         ax=ax,
         title=f"US Death Rates (as of {constants.TODAY.strftime('%d %B %Y')})",
-        fname='death_rate_select_states',
+        fname='death_rate_select_states' + fname_suffix,
         latest=latest
     )
 
@@ -72,5 +72,5 @@ def _plot_death_rate(death_rates, fig, ax, title, fname, latest=False):
 
 def _get_x_lim_max(x_max):
     if x_max < 10:
-        return x_max + 0.5
+        return x_max + 0.6
     return x_max + 1.3
