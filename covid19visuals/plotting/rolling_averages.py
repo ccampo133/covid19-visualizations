@@ -30,7 +30,8 @@ def plot_new_cases_seven_day_average_select_countries(
 def plot_new_cases_seven_day_average_select_states(
         cases: pd.DataFrame,
         countries: List[Dict],
-        latest=False
+        latest=False,
+        fname_suffix=''
 ):
     min_cases = 100
     plot_select_regions(
@@ -44,7 +45,7 @@ def plot_new_cases_seven_day_average_select_states(
         title='Daily Confirmed COVID-19 Cases (Select US States)\n7-Day Rolling Average (Per 1M Population)',
         xlabel=f'Days since {min_cases} total cases',
         ylabel='Daily cases, 7-day rolling avg. (Per 1M Pop.)',
-        fname='daily_confirmed_select_states',
+        fname='daily_confirmed_select_states' + fname_suffix,
         latest=latest
     )
 
@@ -72,7 +73,8 @@ def plot_new_deaths_seven_day_average_select_countries(
 def plot_new_deaths_seven_day_average_select_states(
         deaths: pd.DataFrame,
         countries: List[Dict],
-        latest=False
+        latest=False,
+        fname_suffix=''
 ):
     min_deaths = 10
     plot_select_regions(
@@ -86,7 +88,7 @@ def plot_new_deaths_seven_day_average_select_states(
         title='Daily Confirmed COVID-19 Deaths (Select US States)\n7-Day Rolling Average (Per 1M Population)',
         xlabel=f'Days since {min_deaths} total deaths',
         ylabel='Daily deaths, 7-day rolling avg. (Per 1M Pop.)',
-        fname='daily_deaths_select_states',
+        fname='daily_deaths_select_states' + fname_suffix,
         latest=latest
     )
 

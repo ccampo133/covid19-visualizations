@@ -25,7 +25,7 @@ def plot_cases_select_countries(cases: pd.DataFrame, countries: List[str], lates
     )
 
 
-def plot_cases_select_states(data: pd.DataFrame, states: List[str], latest=False):
+def plot_cases_select_states(data: pd.DataFrame, states: List[str], latest=False, fname_suffix=''):
     min_cases = 100
     plot_select_regions(
         data=data,
@@ -37,7 +37,7 @@ def plot_cases_select_states(data: pd.DataFrame, states: List[str], latest=False
         title='Confirmed COVID-19 Cases (Select US States)',
         xlabel=f'Days since {min_cases} cases',
         ylabel='Cases',
-        fname='confirmed_select_states',
+        fname='confirmed_select_states' + fname_suffix,
         init_max_x=0,
         init_max_y=5e5,
         step=2,
@@ -57,13 +57,13 @@ def plot_deaths_select_countries(deaths: pd.DataFrame, countries: List[str], lat
         ylabel='Deaths',
         fname='deaths_select_countries',
         init_max_x=0,
-        init_max_y=5e4,
+        init_max_y=1e5,
         step=2,
         latest=latest
     )
 
 
-def plot_deaths_select_states(deaths: pd.DataFrame, states: List[str], latest=False):
+def plot_deaths_select_states(deaths: pd.DataFrame, states: List[str], latest=False, fname_suffix=''):
     min_deaths = 10
     plot_select_regions(
         data=deaths,
@@ -75,7 +75,7 @@ def plot_deaths_select_states(deaths: pd.DataFrame, states: List[str], latest=Fa
         title='Confirmed COVID-19 Deaths (Select US States)',
         xlabel=f'Days since {min_deaths} deaths',
         ylabel='Deaths',
-        fname='deaths_select_states',
+        fname='deaths_select_states' + fname_suffix,
         init_max_x=0,
         init_max_y=3e4,
         step=2,

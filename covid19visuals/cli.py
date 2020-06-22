@@ -20,20 +20,28 @@ select_countries_with_populations = [
 
 # Population values in millions. Estimate as of 2019-07-01
 # Source: https://simple.wikipedia.org/wiki/List_of_U.S._states_by_population
-select_states_with_populations = [
+select_states_with_populations_1 = [
     {'region': 'New York', 'pop': 19453561e-6},
     {'region': 'New Jersey', 'pop': 8882190e-6},
-    {'region': 'California', 'pop': 39512223e-6},
-    {'region': 'Michigan', 'pop': 9986857e-6},
-    {'region': 'Florida', 'pop': 21477737e-6},
     {'region': 'Massachusetts', 'pop': 6949503e-6},
-    {'region': 'Washington', 'pop': 7614893e-6},
-    {'region': 'Louisiana', 'pop': 4648794e-6},
     {'region': 'Illinois', 'pop': 12671821e-6},
+    {'region': 'Louisiana', 'pop': 4648794e-6},
+    {'region': 'Michigan', 'pop': 9986857e-6}
+]
+
+# Break the states into two sets because the charts are getting a little noisy
+select_states_with_populations_2 = [
+    {'region': 'California', 'pop': 39512223e-6},
+    {'region': 'Florida', 'pop': 21477737e-6},
+    {'region': 'Texas', 'pop': 28995881e-6},
+    {'region': 'Arizona', 'pop': 7278717e-6},
+    {'region': 'Georgia', 'pop': 10617423e-6},
+    {'region': 'Washington', 'pop': 7614893e-6}
 ]
 
 select_countries = [country['region'] for country in select_countries_with_populations]
-select_states = [state['region'] for state in select_states_with_populations]
+select_states_1 = [state['region'] for state in select_states_with_populations_1]
+select_states_2 = [state['region'] for state in select_states_with_populations_2]
 
 
 def main():
@@ -62,20 +70,8 @@ def main():
         latest=args.latest_only
     )
 
-    plotting.timeseries.plot_cases_select_states(us_data, select_states, latest=args.latest_only)
-    plotting.timeseries.plot_deaths_select_states(us_data, select_states, latest=args.latest_only)
-    plotting.rates.plot_death_rate_select_states(us_data, select_states, latest=args.latest_only)
-    plotting.rolling_averages.plot_new_cases_seven_day_average_select_states(
-        us_data,
-        select_states_with_populations,
-        latest=args.latest_only
-    )
-
-    plotting.rolling_averages.plot_new_deaths_seven_day_average_select_states(
-        us_data,
-        select_states_with_populations,
-        latest=args.latest_only
-    )
+    plot_state_data(args, us_data, select_states_1, select_states_with_populations_1, '_1')
+    plot_state_data(args, us_data, select_states_2, select_states_with_populations_2, '_2')
 
     if not args.no_html:
         total_cases = analysis.get_latest_total(cases)
@@ -83,6 +79,24 @@ def main():
         total_cases_us = analysis.get_latest_total(cases, 'US')
         total_deaths_us = analysis.get_latest_total(deaths, 'US')
         templating.build_index_html(total_cases, total_cases_us, total_deaths, total_deaths_us)
+
+
+def plot_state_data(args, us_data, states, states_with_pops, fname_suffix):
+    plotting.timeseries.plot_cases_select_states(us_data, states, latest=args.latest_only, fname_suffix=fname_suffix)
+    plotting.timeseries.plot_deaths_select_states(us_data, states, latest=args.latest_only, fname_suffix=fname_suffix)
+    plotting.rates.plot_death_rate_select_states(us_data, states, latest=args.latest_only, fname_suffix=fname_suffix)
+    plotting.rolling_averages.plot_new_cases_seven_day_average_select_states(
+        us_data,
+        states_with_pops,
+        latest=args.latest_only,
+        fname_suffix=fname_suffix
+    )
+    plotting.rolling_averages.plot_new_deaths_seven_day_average_select_states(
+        us_data,
+        states_with_pops,
+        latest=args.latest_only,
+        fname_suffix=fname_suffix
+    )
 
 
 if __name__ == '__main__':
