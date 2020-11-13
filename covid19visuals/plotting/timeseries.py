@@ -19,7 +19,7 @@ def plot_cases_select_countries(cases: pd.DataFrame, countries: List[str], lates
         ylabel='Cases',
         fname='confirmed_select_countries',
         init_max_x=0,
-        init_max_y=2e6,
+        init_max_y=1e7,
         step=2,
         latest=latest
     )
@@ -39,7 +39,7 @@ def plot_cases_select_states(data: pd.DataFrame, states: List[str], latest=False
         ylabel='Cases',
         fname='confirmed_select_states' + fname_suffix,
         init_max_x=0,
-        init_max_y=5e5,
+        init_max_y=1e6,
         step=2,
         latest=latest
     )
@@ -57,7 +57,7 @@ def plot_deaths_select_countries(deaths: pd.DataFrame, countries: List[str], lat
         ylabel='Deaths',
         fname='deaths_select_countries',
         init_max_x=0,
-        init_max_y=1e5,
+        init_max_y=1e6,
         step=2,
         latest=latest
     )
@@ -77,7 +77,7 @@ def plot_deaths_select_states(deaths: pd.DataFrame, states: List[str], latest=Fa
         ylabel='Deaths',
         fname='deaths_select_states' + fname_suffix,
         init_max_x=0,
-        init_max_y=3e4,
+        init_max_y=1e5,
         step=2,
         latest=latest
     )
