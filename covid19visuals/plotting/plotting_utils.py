@@ -33,7 +33,8 @@ def config_axes(ax, xlim, ylim, xlabel, ylabel, title, loc='lower right', ncol=1
     ax.set_ylim(ylim)
     ax.set_xlim(xlim)
     start, end = xlim
-    ax.xaxis.set_ticks(np.arange(start, end + 1, 5))
+    ax.xaxis.set_ticks(np.arange(start, end + 10, 20))
+    ax.tick_params(axis='x', labelsize=8)
     ax.set_title(title)
     add_watermark(ax)
 
@@ -41,7 +42,7 @@ def config_axes(ax, xlim, ylim, xlabel, ylabel, title, loc='lower right', ncol=1
 def plot_linear(ax, x, y, region: str):
     pct_change = utils.percent_change(y[-2], y[-1])
     sign = '+' if pct_change > 0 else ''
-    ax.plot(x, y, 's-', ms=1.5, linewidth=1, label=f'{region} ({sign}{pct_change}%)')
+    ax.plot(x, y, '-', ms=1.5, linewidth=1, label=f'{region} ({sign}{pct_change}%)')
 
 
 def plot_exponential_growth(ax, x0, t, rate, ls='s-'):
@@ -52,4 +53,4 @@ def plot_exponential_growth(ax, x0, t, rate, ls='s-'):
 
 def plot_semilogy(ax, x, y, region: str):
     pct_change = utils.percent_change(y[-2], y[-1])
-    ax.semilogy(x, y, 's-', ms=1.5, linewidth=1, label=f'{region} (+{pct_change}%)')
+    ax.semilogy(x, y, '-', ms=1.5, linewidth=1, label=f'{region} (+{pct_change}%)')
