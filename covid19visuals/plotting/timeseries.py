@@ -19,7 +19,7 @@ def plot_cases_select_countries(cases: pd.DataFrame, countries: List[str], lates
         ylabel='Cases',
         fname='confirmed_select_countries',
         init_max_x=0,
-        init_max_y=1e7,
+        init_max_y=5e7,
         step=2,
         latest=latest
     )
