@@ -39,7 +39,7 @@ def plot_cases_select_states(data: pd.DataFrame, states: List[str], latest=False
         ylabel='Cases',
         fname='confirmed_select_states' + fname_suffix,
         init_max_x=0,
-        init_max_y=1e7,
+        init_max_y=5e6,
         step=2,
         latest=latest
     )
