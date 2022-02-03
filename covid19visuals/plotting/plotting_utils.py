@@ -5,7 +5,7 @@ from covid19visuals import constants, utils, analysis
 
 
 def add_watermark(ax, xpos=0.835, ypos=-0.12):
-    ax.text(xpos, ypos, '© 2021 C. Campo\ncovid19.ccampo.me', alpha=0.5, fontsize=6, transform=ax.transAxes)
+    ax.text(xpos, ypos, '© 2022 C. Campo\ncovid19.ccampo.me', alpha=0.5, fontsize=6, transform=ax.transAxes)
 
 
 def save_figs(fig, fname_prefix: str, latest=False):
